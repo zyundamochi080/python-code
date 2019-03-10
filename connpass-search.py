@@ -13,7 +13,13 @@ def main():
 
 def keySearch(searchKey):
     url = "https://connpass.com/api/v1/event/?keyword=" + searchKey
-    data = requests.get(url).json()
+    r = requests.get(url)
+    data = r.json()
+
+    if r.status_code != 200:
+        print("Error")
+        sys.exit()
+
     events = data["events"]
     for event in events:
         for k, v in event.items():
